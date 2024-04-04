@@ -12,7 +12,7 @@ const auth = async (req, res, next) => {
       token = token.split(" ")[1];
 
       const decode = jwt.verify(token, process.env.SECRET_KEY);
-      req.user = await User.findById(decode.userId);
+      req.user = await User.findById(decode.userId).select("-password");
 
       next();
     }
